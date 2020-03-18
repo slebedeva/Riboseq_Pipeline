@@ -1,13 +1,13 @@
 #note that file paths are relative to the pipeline directory
-root: "/fast/AG_Ohler/dharnet/Riboseq_Pipeline"
-REF_orig: "../ext_data/genome/GRCh38.primary_assembly.genome.fa"
-GTF_orig: "../ext_data/annotation/gencode.v30.primary_assembly.annotation.gtf"
+root: "/data/ohler/svetlana/pipelines/Riboseq_Pipeline"
+REF_orig: "/data/ohler/svetlana/pipelines/GRCh37.p13.genome.fa"
+GTF_orig: "/data/ohler/svetlana/pipelines/gencode.v19.annotation.gtf"
 Contam: "../ext_data/contaminants.fa"
 collapse_reads_script: "../src/pipeline_scripts/collapse_reads.pl"
 MINREADLENGTH: 18
 MAXREADLENGTH: 100
 QUALLIM: 20
-REMOVE8NBIN: "../remove8N.pl"
+REMOVE8NBIN: "../src/pipeline_scripts/remove8N.pl"
 sample_files: "../src/read_files.csv"
 sample_parameter: "../src/sample_parameter.csv"
 multiqcscript: 'multiqc'
@@ -15,12 +15,12 @@ rnaseqpipescriptdir: '../src/pipeline_scripts/'
 STARTCODTRIM: 15
 STOPCODTRIM: 5
 ADAPTERSEQ: "TGGAATTCTCGGGTGCCAAGG"
-SPECIES: "HEK"
+SPECIES: "HELA"
 RIBOSEQCPACKAGE: "../Applications/RiboseQC/"
 ORFquantPACKAGE: "../Applications/ORFquant/"
 FILT_RIBO_FOLDER: "filter_reads"
 TRIM_IDS: False
-no_UMIs: True
+no_UMIs: False
 FILT_RNA_FOLDER: 'preprocessed_reads'
 RNALENRANGE: "20_1000"
 RIBOLENRANGE: "25_31"

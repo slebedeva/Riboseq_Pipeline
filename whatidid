@@ -1,0 +1,1 @@
+awk 'BEGIN { FS=,; OFS=,}; { if (NR!=1) print ,SINGLE,-f *fastq.gz,no,150,20,,ribo,27_30nt}' src/read_files.csv | sed 's/_[12]//2'

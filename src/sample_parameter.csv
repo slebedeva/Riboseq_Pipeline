@@ -1,10 +1,25 @@
 sample_id,library_layout,read_pattern,protocol,fragment_length_mean,fragment_length_sd,group,assay,fraction
-total_1,SINGLE, -f *fastq.gz,no,150,20,riboPOOLs_27_30nt,ribo,27_30nt
-riboPOOLs_27_30nt_2,SINGLE, -f *fastq.gz,no,150,20,riboPOOLs_27_30nt,ribo,27_30nt
-RiboZero_20nt_1_2,SINGLE, -f *fastq.gz,no,150,20,RiboZero_20nt,ribo,20nt
-RNaseH_27_30nt_1,SINGLE, -f *fastq.gz,no,150,20,RNaseH_27_30nt,ribo,27_30nt
-riboPOOLs_27_30nt_1,SINGLE, -f *fastq.gz,no,150,20,riboPOOLs_27_30nt,ribo,27_30nt
-RiboZero_27_30nt_1,SINGLE, -f *fastq.gz,no,150,20,RiboZero_27_30nt,ribo,27_30nt
-RiboZero_27_30nt_2,SINGLE, -f *fastq.gz,no,150,20,RiboZero_27_30nt,ribo,27_30nt
-RNaseH_27_30nt_2,SINGLE, -f *fastq.gz,no,150,20,RNaseH_27_30nt,ribo,27_30nt
-RiboZero_56_60nt_1_2,SINGLE, -f *fastq.gz,no,150,20,RiboZero_56_60nt,ribo,56_60nt
+HeLaRMD_1_RPF,SINGLE,-f *fastq.gz,no,150,20,HeLaRMD_RPF,,27
+RKO_1_RPF,SINGLE,-f *fastq.gz,no,150,20,RKO_RPF,,27
+CKO_1_RPF,SINGLE,-f *fastq.gz,no,150,20,CKO_RPF,,27
+W_2_IN,SINGLE,-f *fastq.gz,no,150,20,W_IN,,27
+M_2_IN,SINGLE,-f *fastq.gz,no,150,20,M_IN,,27
+HeLa_2_IN,SINGLE,-f *fastq.gz,no,150,20,HeLa_IN,,27
+HeLaRMD_2_IN,SINGLE,-f *fastq.gz,no,150,20,HeLaRMD_IN,,27
+RKO_2_IN,SINGLE,-f *fastq.gz,no,150,20,RKO_IN,,27
+CKO_2_IN,SINGLE,-f *fastq.gz,no,150,20,CKO_IN,,27
+W_2_RPF,SINGLE,-f *fastq.gz,no,150,20,W_RPF,,27
+W_1_IN,SINGLE,-f *fastq.gz,no,150,20,W_IN,,27
+M_2_RPF,SINGLE,-f *fastq.gz,no,150,20,M_RPF,,27
+HeLa_2_RPF,SINGLE,-f *fastq.gz,no,150,20,HeLa_RPF,,27
+HeLaRMD_2_RPF,SINGLE,-f *fastq.gz,no,150,20,HeLaRMD_RPF,,27
+RKO_2_RPF,SINGLE,-f *fastq.gz,no,150,20,RKO_RPF,,27
+CKO_2_RPF,SINGLE,-f *fastq.gz,no,150,20,CKO_RPF,,27
+M_1_IN,SINGLE,-f *fastq.gz,no,150,20,M_IN,,27
+HeLa_1_IN,SINGLE,-f *fastq.gz,no,150,20,HeLa_IN,,27
+HeLaRMD_1_IN,SINGLE,-f *fastq.gz,no,150,20,HeLaRMD_IN,,27
+RKO_1_IN,SINGLE,-f *fastq.gz,no,150,20,RKO_IN,,27
+CKO_1_IN,SINGLE,-f *fastq.gz,no,150,20,CKO_IN,,27
+W_1_RPF,SINGLE,-f *fastq.gz,no,150,20,W_RPF,,27
+M_1_RPF,SINGLE,-f *fastq.gz,no,150,20,M_RPF,,27
+HeLa_1_RPF,SINGLE,-f *fastq.gz,no,150,20,HeLa_RPF,,27
