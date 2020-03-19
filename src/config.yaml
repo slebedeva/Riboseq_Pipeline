@@ -16,8 +16,8 @@ STARTCODTRIM: 15
 STOPCODTRIM: 5
 ADAPTERSEQ: "TGGAATTCTCGGGTGCCAAGG"
 SPECIES: "HELA"
-RIBOSEQCPACKAGE: "../Applications/RiboseQC/"
-ORFquantPACKAGE: "../Applications/ORFquant/"
+RIBOSEQCPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe/lib/R/library/RiboseQC"
+ORFquantPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe/lib/R/library/ORFquant"
 FILT_RIBO_FOLDER: "filter_reads"
 TRIM_IDS: False
 no_UMIs: False
