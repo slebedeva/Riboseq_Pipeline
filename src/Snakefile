@@ -99,6 +99,7 @@ STARTCODTRIM=config['STARTCODTRIM']
 STOPCODTRIM=config['STOPCODTRIM']
 REF_orig=config['REF_orig']
 GTF_orig=config['GTF_orig']
+TwoBit=config['TwoBit']
 
 assert(Path(GTF_orig).exists()), GTF_orig + ", the GTF file, doesn't exist"
 
@@ -1111,11 +1112,22 @@ rule aggregate_feature_counts:
 ####################################################################################################
 
 
+rule FaToTwoBit:
+  input:
+    REF,
+  output:
+    TwoBit,
+  shell:
+    """
+    faToTwoBit {REF} {TwoBit}
+    """
+
+
 RIBOSEQCPACKAGE = config['RIBOSEQCPACKAGE']
 rule make_riboseqc_anno:
   input : 
     GTF,
-    REF,str(REF)+'.fai'
+    TwoBit,
   output: GTF.with_suffix('.matchchrs.gtf_Rannot')
   params:
     annobase = Path(GTF).name.replace('.gtf','').replace('.gz',''),
@@ -1124,7 +1136,7 @@ rule make_riboseqc_anno:
     set -x
     awk -vOFS="\t" '{{print $1,0,$2}}' {REF}.fai | bedtools intersect -b - -a {GTF} > {params.gtfmatchchrs} 
     mkdir -p $(dirname {output[0]})
-    R -e 'library("RiboseQC"); prepare_annotation_files(annotation_directory=".",gtf_file="{params.gtfmatchchrs}",annotation_name="{params.annobase}",forge_BS=FALSE, genome_seq=FaFile("{REF}"))'
+    R -e 'library("RiboseQC"); prepare_annotation_files(annotation_directory=".",twobit_file="{TwoBit}",gtf_file="{params.gtfmatchchrs}",annotation_name="{params.annobase}",forge_BSgenome=TRUE,export_bed_tables_TxDb=T,create_TxDb=T,scientific_name="Mus.musculus")'
  """
 
 #R -e 'if (! "RiboseQC" %in% installed.packages()) devtools::install("{RIBOSEQCPACKAGE}",upgrade="never")'
@@ -1154,7 +1166,7 @@ rule make_riboseqc_anno:
 
 rule run_riboseqc:
    input: GTF.with_suffix('.matchchrs.gtf_Rannot'),bam=ALIGNER_TO_USE+'/data/{sample}/{sample}.bam'
-   output: touch('riboseqc/data/{sample}/.done'),'riboseqc/data/{sample}/_for_ORFquant','riboseqc/reports/{sample}/riboseqcreport.html',
+   output: touch('riboseqc/data/{sample}/.done'),'riboseqc/data/{sample}/_for_SaTAnn','riboseqc/reports/{sample}/riboseqcreport.html',
    threads: 4
    params:
      annofile = lambda wc,input: input[0].replace('annot.done',Path(GTF_orig).name.replace('.gtf','.matchchrs.gtf_Rannot')),
@@ -1164,11 +1176,11 @@ rule run_riboseqc:
          set -x
          mkdir -p {params.outname}
          mkdir -p riboseqc/reports/{wildcards.sample}
-         R -e 'library("RiboseQC");RiboseQC_analysis("{params.annofile}", bam="{input.bam}",rescue_all_rls=F,dest_names="{params.outname}", genome_seq = "{REF}", report_file="{params.report_file}")'
+         R -e 'library("RiboseQC");RiboseQC_analysis(annotation_file ="{params.annofile}", bam_files="{input.bam}",dest_names="{params.outname}", report_file="{params.report_file}")'
      """
 
 rule segment_periodicity:
-  input: '../ext_data/segments.gtf',GTF,'riboseqc/data/{sample}/_for_ORFquant',ALIGNER_TO_USE+'/data/{sample}/{sample}.bam'
+  input: '../ext_data/segments.gtf',GTF,'riboseqc/data/{sample}/_for_SaTAnn',ALIGNER_TO_USE+'/data/{sample}/{sample}.bam'
   output: 'segment_scores/{sample}/segment_scores.tsv'
   shell: r''' Rscript ../src/segment_periodicity.R {input} {output} '''
 
@@ -1178,7 +1190,7 @@ rule run_ORFquant:
   input : 'riboseqc/data/{sample}/.done',annofile=GTF.with_suffix('.matchchrs.gtf_Rannot')
   output: touch('ORFquant/{sample}/.done')
   params: 
-    for_ORFquantfile = lambda wc,input: 'c("'+('","'.join(['riboseqc/data/'+s+'/''_for_ORFquant' for s in [wc['sample']] ]))+'")',
+    for_ORFquantfile = lambda wc,input: 'c("'+('","'.join(['riboseqc/data/'+s+'/''_for_SaTAnn' for s in [wc['sample']] ]))+'")',
 
     outputdir = lambda wc,output: output[0].replace('.done','')
   threads: 10

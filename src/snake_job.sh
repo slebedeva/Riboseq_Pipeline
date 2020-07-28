@@ -11,8 +11,10 @@
 
 #source ~/.bashrc
 eval "$(/home/lebedeva/miniconda3/bin/conda shell.bash hook)"
-conda activate ribopipe #ribopipebase
+#conda activate ribopipe #ribopipebase
+conda activate ribopipe_Lore
 mkdir -p logs
 mkdir -p sge_log
+snakemake --unlock &&
 snakemake -j 10 -k -p --restart-times 1 --max-jobs-per-second 5 -s Snakefile --cluster-config ../src/config_pipeline.json  --rerun-incomplete --use-conda --cluster="qsub -cwd -V -l m_mem_free={cluster.m_mem_free} -l h_rt={cluster.h_rt} -pe {cluster.pe} -j yes -o sge_log -l data" "all"
 exit 0

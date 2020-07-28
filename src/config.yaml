@@ -1,23 +1,40 @@
 #note that file paths are relative to the pipeline directory
 root: "/data/ohler/svetlana/pipelines/Riboseq_Pipeline"
-REF_orig: "/data/ohler/svetlana/pipelines/GRCh37.p13.genome.fa"
-GTF_orig: "/data/ohler/svetlana/pipelines/gencode.v19.annotation.gtf"
-Contam: "../ext_data/contaminants.fa"
+
+## human
+#REF_orig: "/data/ohler/svetlana/pipelines/GRCh37.p13.genome.fa"
+#GTF_orig: "/data/ohler/svetlana/pipelines/gencode.v19.annotation.gtf"
+#Contam: "../ext_data/contaminants.fa"
+
+## mouse
+REF_orig: "/fast/AG_Ohler/Genomes/mouse/m38/GRCm38.p6.genome.fa"
+TwoBit: "/fast/AG_Ohler/Genomes/mouse/m38/GRCm38.p6.genome.2bit"
+GTF_orig: "/fast/AG_Ohler/Genomes/mouse/m38/annotation/M25/gencode.vM25.annotation.gtf"
+Contam: "../ext_data/mouse_contaminants/mm10/rRNA/Mus_musculus.GRCm38.ncrna.rRNA.fa"
+
 collapse_reads_script: "../src/pipeline_scripts/collapse_reads.pl"
 MINREADLENGTH: 18
 MAXREADLENGTH: 100
 QUALLIM: 20
 REMOVE8NBIN: "../src/pipeline_scripts/remove8N.pl"
+
+## change these files for every new analysis!!!
 sample_files: "../src/read_files.csv"
 sample_parameter: "../src/sample_parameter.csv"
+
+
 multiqcscript: 'multiqc'
 rnaseqpipescriptdir: '../src/pipeline_scripts/'
 STARTCODTRIM: 15
 STOPCODTRIM: 5
 ADAPTERSEQ: "TGGAATTCTCGGGTGCCAAGG"
-SPECIES: "HELA"
-RIBOSEQCPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe/lib/R/library/RiboseQC"
-ORFquantPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe/lib/R/library/ORFquant"
+
+## change this for every new sample
+#SPECIES: "HELA"
+SPECIES: "MOUSE"
+
+RIBOSEQCPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe_Lore/lib/R/library/RiboseQC"
+ORFquantPACKAGE: "/fast/home/l/lebedeva/miniconda3/envs/ribopipe_Lore/lib/R/library/ORFquant"
 FILT_RIBO_FOLDER: "filter_reads"
 TRIM_IDS: False
 no_UMIs: False
