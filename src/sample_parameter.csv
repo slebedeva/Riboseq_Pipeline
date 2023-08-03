@@ -1,12 +1,2 @@
 sample_id,library_layout,read_pattern,protocol,fragment_length_mean,fragment_length_sd,group,assay,fraction
 EB_0h_A_S5,SINGLE,-f *fastq.gz,no,150,20,EB_0h_A_S5,ribo,27_30nt
-EB_12h_A_S6,SINGLE,-f *fastq.gz,no,150,20,EB_12h_A_S6,ribo,27_30nt
-EB_48h_A_S7,SINGLE,-f *fastq.gz,no,150,20,EB_48h_A_S7,ribo,27_30nt
-EB_0h_B_S8,SINGLE,-f *fastq.gz,no,150,20,EB_0h_B_S8,ribo,27_30nt
-EB_12h_B_S9,SINGLE,-f *fastq.gz,no,150,20,EB_12h_B_S9,ribo,27_30nt
-EB_48h_B_S10,SINGLE,-f *fastq.gz,no,150,20,EB_48h_B_S10,ribo,27_30nt
-EB_0h_C_S11,SINGLE,-f *fastq.gz,no,150,20,EB_0h_C_S11,ribo,27_30nt
-EB_12h_C_S12,SINGLE,-f *fastq.gz,no,150,20,EB_12h_C_S12,ribo,27_30nt
-EB_48h_C_S13,SINGLE,-f *fastq.gz,no,150,20,EB_48h_C_S13,ribo,27_30nt
-EB_0h_B_ribocop_S14,SINGLE,-f *fastq.gz,no,150,20,EB_0h_B_ribocop_S14,ribo,27_30nt
-EB_12h_B_ribocop_S15,SINGLE,-f *fastq.gz,no,150,20,EB_12h_B_ribocop_S15,ribo,27_30nt

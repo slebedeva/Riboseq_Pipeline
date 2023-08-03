@@ -130,6 +130,7 @@ rule all:
   input:
     seqfilesdf.file,
     expand("{aligner}/data/{sample}/{sample}.bam", aligner = ALIGNERS, sample = samples),
+    expand("{aligner}/data/{sample}/{sample}_tx.bam", aligner = ALIGNERS, sample = samples),
     ("multiqc/multiqc_report.html"),
     expand('feature_counts_readrange/data/{sample}/{gcol_generegion}/{readrange}/feature_counts', sample=ribosamples, gcol_generegion='gene_id__CDS', readrange=config['RNALENRANGE']),
     expand('feature_counts_readrange/data/{sample}/{gcol_generegion}/{readrange}/feature_counts', sample=rnasamples, gcol_generegion='gene_id__CDS', readrange=config['RIBOLENRANGE']),
@@ -557,7 +558,7 @@ rule star:
           rfastqs=get_sample_fastqs2,
           STARINDEX='starindex/starindex.done',
      output:
-          done = touch('star/data/{sample,[^/]+}/.done'),bam='star/data/{sample}/{sample}.bam',bai='star/data/{sample}/{sample}.bam.bai'
+          done = touch('star/data/{sample,[^/]+}/.done'),bam='star/data/{sample}/{sample}.bam',bai='star/data/{sample}/{sample}.bam.bai',txbam='star/data/{sample}/{sample}_tx.bam'
      threads: 8
      conda: "../envs/star"
      #please check params, there is a lot of stuff i did.
@@ -590,6 +591,7 @@ rule star:
 
 
         #--outSAMmultNmax 20 --winAnchorMultimapNmax 50 --outFilterMultimapNmax 20 --genomeDir {input.STARINDEX} \
+        #--quantMode GeneCounts \
 
         STAR \
               --genomeDir {params.GEN_DIR} \
@@ -605,7 +607,7 @@ rule star:
               --alignIntronMax 1000000 \
               --alignMatesGapMax 1000000 \
               --genomeLoad NoSharedMemory \
-              --quantMode GeneCounts \
+              --quantMode TranscriptomeSAM  \
               --outSAMattributes NH HI AS NM MD \
               --outSAMtype BAM Unsorted\
               --outSAMattrRGline \"ID:{sample}\" \"SM:{sample}\" \"PL:{params.platform}\" \
@@ -614,6 +616,8 @@ rule star:
               --readFilesIn {params.lfilestring} {params.rfilestring}
           
          mv ${{MY_TMP_DIR}}/star/Aligned.out.bam ${{MY_TMP_DIR}}/star/all.bam
+
+         mv ${{MY_TMP_DIR}}/star/Aligned.toTranscriptome.out.bam {output.txbam}
 
          samtools sort \
           -m {params.sortmem} \
@@ -629,7 +633,7 @@ rule star:
         samtools flagstat {params.outputdir}/{wildcards.sample}.bam > {params.repdir}/{wildcards.sample}.flagstat.log
         samtools idxstats {params.outputdir}/{wildcards.sample}.bam > {params.repdir}/{wildcards.sample}.idxstats.log
         
-        cp ${{MY_TMP_DIR}}/star/ReadsPerGene.out.tab {params.outputdir}/ReadsPerGene.out.tab
+        #cp ${{MY_TMP_DIR}}/star/ReadsPerGene.out.tab {params.outputdir}/ReadsPerGene.out.tab
         cp ${{MY_TMP_DIR}}/star/SJ.out.tab {params.outputdir}/
         cp ${{MY_TMP_DIR}}/star/{{Log.final.out,Log.out}} {params.repdir}/
         if [ $iftophat ] ;then cp ${{MY_TMP_DIR}}/tophat2/align_summary.txt {params.repdir} ;fi
